@@ -52,7 +52,13 @@ public class EmployeeController {
         request.getSession().removeAttribute("employee");
         return R.success("退出成功");
     }
-
+    /**
+     * @description: 新增员工
+     * @author: jiajunyu
+     * @date: 2022/8/23 20:49
+     * @param: [request, employee]
+     * @return: cn.jjy.reggie.result.R<java.lang.String>
+     **/
     @PostMapping
     public R<String> addEmployee(HttpServletRequest request ,@RequestBody Employee employee) {
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
@@ -61,8 +67,11 @@ public class EmployeeController {
         employee.setUpdateTime(LocalDateTime.now());
         employee.setCreateUser((Long) request.getAttribute("employee"));
         employee.setUpdateUser((Long) request.getAttribute("emplouee"));
-
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
         employeeService.save(employee);
         return R.success("新增员工成功");
     }
+
 }
