@@ -1,4 +1,4 @@
-package cn.jjy.reggie.result;
+package cn.jjy.reggie.common;
 
 import lombok.Data;
 import java.util.HashMap;

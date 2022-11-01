@@ -1,14 +1,10 @@
 package cn.jjy.reggie.service;
 
-import cn.jjy.reggie.entity.Employee;
+
+import cn.jjy.reggie.entity.Dish;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
-public interface EmployeeService extends IService<Employee> {
-
-
+public interface DishService extends IService<Dish> {
 }
-

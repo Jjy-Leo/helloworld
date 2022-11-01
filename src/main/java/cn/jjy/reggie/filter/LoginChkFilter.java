@@ -1,6 +1,7 @@
 package cn.jjy.reggie.filter;
 
-import cn.jjy.reggie.result.R;
+import cn.jjy.reggie.common.BaseUtils;
+import cn.jjy.reggie.common.R;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -31,11 +32,15 @@ public class LoginChkFilter implements Filter {
         String requestURI = request.getRequestURI();
 
 
+        //定义不需要处理的请求路径
         String[] urls = new String[]{
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front/**"
+                "/front/**",
+                "/common/**",
+                "/user/sendMsg",
+                "/user/login"
         };
         for (int i = 0; i < urls.length; i++) {
             if (PATH_MATCHER.match(urls[i], requestURI)) {
@@ -45,6 +50,9 @@ public class LoginChkFilter implements Filter {
         }
 
         if (request.getSession().getAttribute("employee") != null) {
+            ThreadLocal threadLocal = BaseUtils.getThreadLocal();
+            Long empId = (Long) request.getSession().getAttribute("employee");
+            threadLocal.set(empId);
             filterChain.doFilter(request, response);
             return;
         }
