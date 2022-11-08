@@ -1,5 +1,6 @@
-package cn.jjy.reggie.common;
+package cn.jjy.reggie.controller;
 
+import cn.jjy.reggie.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
