@@ -127,4 +127,9 @@ public class SetmealController {
         }
         return R.success("修改成功");
     }
+
+    @DeleteMapping
+    public R<String> deleteWithSetmealDish(@RequestParam(name = "ids") List<Long> setmealIdList) {
+        return setmealService.deleteWithSetmealDish(setmealIdList);
+    }
 }
