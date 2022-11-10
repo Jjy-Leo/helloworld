@@ -27,9 +27,9 @@ public class CommonController {
     @PostMapping("/upload")
     public R<String> upload(@RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
         OutputStream outputStream = null;
-        String name = multipartFile.getOriginalFilename();
-        String[] split = name.split("\\.");
-        name = split[split.length - 1];
+        String filename = multipartFile.getOriginalFilename();
+        String[] split = filename.split("\\.");
+        String name = split[split.length - 1];
 
         try {
             log.info(name);
@@ -44,7 +44,8 @@ public class CommonController {
             } else {
                 saveFile.mkdir();
             }
-            path = basePath + UUID.randomUUID() + "." + name;
+            filename = UUID.randomUUID() + "." + name;
+            path = basePath + filename;
             File file = new File(path);
 
             outputStream = new FileOutputStream(file);
@@ -56,7 +57,7 @@ public class CommonController {
             outputStream.close();
         }
 
-        return R.success("上传成功");
+        return R.success(filename);
     }
 
 
